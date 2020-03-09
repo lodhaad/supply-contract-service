@@ -9,7 +9,9 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tradeai.supplycontractservice.data.SupplyActivityRepository;
 import com.tradeai.supplycontractservice.data.SupplyContractRepository;
+import com.tradeai.supplycontractservice.datamodel.ActivityCompositeKey;
 import com.tradeai.supplycontractservice.datamodel.SupplyActivity;
 import com.tradeai.supplycontractservice.datamodel.SupplyActivityStatus;
 import com.tradeai.supplycontractservice.datamodel.SupplyContract;
@@ -22,6 +24,9 @@ public class SupplyContractServiceImpl implements SupplyContractService {
 	
 	@Autowired
 	private SupplyContractRepository repository;
+	
+	@Autowired
+	private SupplyActivityRepository activityRepository;
 	
 	@Autowired
 	private ModelMapper mapper;
@@ -100,6 +105,18 @@ public class SupplyContractServiceImpl implements SupplyContractService {
 		
 		return contractDTO;
 		
+	}
+
+	@Override
+	public SupplyContractActivityDTO getActivityByActivityIdAndContractId(Integer contractId,
+			Integer contractActivityId) {
+		
+		
+		ActivityCompositeKey key = new ActivityCompositeKey(contractId, contractActivityId);
+	
+		///activityRepository.findById(key);
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
