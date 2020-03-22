@@ -74,9 +74,10 @@ public class SupplyContract {
 	@Column (name = "contract_status")
 	private String contractStatus;
 	
-	@OneToMany(mappedBy="relatedContract")
-	
-	private List<SupplyActivity> activities = new ArrayList<>();
+	/*
+	  @OneToMany(mappedBy="relatedContract")
+	 
+	  private List<SupplyActivity> activities = new ArrayList<>();
 	
 	
 	public void addActivity(SupplyActivity activity) {
@@ -95,6 +96,11 @@ public class SupplyContract {
 	
 	
 	 
+	 
+	 
+	 */
+	
+	
 	
 	
 

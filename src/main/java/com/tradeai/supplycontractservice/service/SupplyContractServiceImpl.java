@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tradeai.supplycontractservice.data.SupplyActivityRepository;
+import com.tradeai.supplycontractservice.data.SupplyActivityStatusRepository;
 import com.tradeai.supplycontractservice.data.SupplyContractRepository;
 import com.tradeai.supplycontractservice.datamodel.ActivityCompositeKey;
 import com.tradeai.supplycontractservice.datamodel.SupplyActivity;
@@ -27,6 +28,9 @@ public class SupplyContractServiceImpl implements SupplyContractService {
 	
 	@Autowired
 	private SupplyActivityRepository activityRepository;
+	
+	@Autowired
+	private SupplyActivityStatusRepository acivityStatusRepository;
 	
 	@Autowired
 	private ModelMapper mapper;
@@ -48,7 +52,7 @@ public class SupplyContractServiceImpl implements SupplyContractService {
 
 
 		
-		List<SupplyActivity> activities = contractModel.getActivities();
+		List<SupplyActivity> activities = activityRepository.findBySupplyContractId(contractModel.getSupplyContractId());
 		
 		List<SupplyContractActivityDTO> dtos = new ArrayList<>();
 		
@@ -58,15 +62,21 @@ public class SupplyContractServiceImpl implements SupplyContractService {
 			
 			List<SupplyContractActivityStatusDTO> statuses = new ArrayList<>();
 			
-			 List<SupplyActivityStatus> dbstatus = activity.getStatuses();
+			 List<SupplyActivityStatus> dbstatus = acivityStatusRepository.findByContractIdAndContractActivityId(activity.getSupplyContractId(), 
+					 activity.getSupplyContractActivityId());
 			 
 			 for (SupplyActivityStatus status : dbstatus) {
 				 
 				 SupplyContractActivityStatusDTO statusDTO = new SupplyContractActivityStatusDTO();
-				 statusDTO.setContractActivityId(status.getRelatedContractActivity().getSupplyContractActivityId());
+				 statusDTO.setContractActivityId(status.getContractActivityId());
+				 statusDTO.setContractId(status.getContractId());
 				 statusDTO.setContractActivityStatusId(status.getContractActivityStatusId());
 				 statusDTO.setActivityType(status.getActivityType());
 				 statusDTO.setActivityState(status.getActivityState());
+
+
+
+				 
 				 statuses.add(statusDTO);
 				 
 			 }
@@ -77,6 +87,10 @@ public class SupplyContractServiceImpl implements SupplyContractService {
 			 activityDTO.setSupplyContractActivityId(activity.getSupplyContractActivityId());
 			 activityDTO.setActivityState(activity.getActivityState());
 			 activityDTO.setActivityType(activity.getActivityType());
+			 activityDTO.setContractId(activity.getSupplyContractId());
+			 activityDTO.setActivityPrice(activity.getActivityPrice());
+			 activityDTO.setActivityQuantity(activity.getActivityQuantity());
+			 activityDTO.setActivityRate(activity.getActivityRate());
 			 
 			 activityDTO.setStatuses(statuses);
 			 
@@ -97,6 +111,11 @@ public class SupplyContractServiceImpl implements SupplyContractService {
 		contractDTO.setOriginalQuantity(contractModel.getOriginalQuantity());
 		contractDTO.setOriginalRate(contractModel.getOriginalRate());
 		contractDTO.setSecurityCode(contractModel.getSecurityCode());
+		contractDTO.setSuppliedId(contractModel.getSuppliedId());
+		contractDTO.setCurrentPrice(contractModel.getCurrentPrice());
+		contractDTO.setCurrentQuantity(contractModel.getCurrentQuantity());
+		contractDTO.setCurrentRate(contractModel.getCurrentRate());
+		contractDTO.setContractStatus(contractModel.getContractStatus());
 		
 		contractDTO.setActivities(dtos);
 		
@@ -107,18 +126,6 @@ public class SupplyContractServiceImpl implements SupplyContractService {
 		
 	}
 
-	@Override
-	public SupplyContractActivityDTO getActivityByActivityIdAndContractId(Integer contractId,
-			Integer contractActivityId) {
-		
-		
-		ActivityCompositeKey key = new ActivityCompositeKey(contractId, contractActivityId);
-	
-		///activityRepository.findById(key);
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	
 
 }

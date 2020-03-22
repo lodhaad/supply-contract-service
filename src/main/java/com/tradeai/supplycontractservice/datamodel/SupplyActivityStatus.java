@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
@@ -25,21 +26,24 @@ import lombok.ToString;
 @Table (name = "supply_contract_activity_state", schema = "supply")
 
 
+@IdClass(StatusCompositeKey.class)
+
+
 public class SupplyActivityStatus {
 	
 	@Id
 	@Column (name = "supply_contract_activity_state_id")
 	private Integer contractActivityStatusId;
 	
-	/*
 	
+	@Id
 	@Column (name = "supply_contract_id")
 	private Integer contractId;
 	
-	
+	@Id
 	@Column (name = "supply_contract_activity_id")
 	private Integer contractActivityId;
-	*/
+	
 	
 	@Column (name = "supply_contract_activity_type")
 	private String activityType;
@@ -53,6 +57,7 @@ public class SupplyActivityStatus {
 	@Column (name = "supply_contract_activity_state_timestamp")
 	private Timestamp activityStateTimestamp;
 	
+	/*
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns( {
@@ -66,5 +71,7 @@ public class SupplyActivityStatus {
 	
 	
 	private SupplyActivity relatedContractActivity;
+	
+	*/
 
 }
