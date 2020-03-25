@@ -10,6 +10,9 @@ import org.springframework.context.annotation.Bean;
 
 
 
+
+
+
 @SpringBootApplication
 ///@EnableDiscoveryClient
 public class SupplyContractServiceApplication {
@@ -27,6 +30,8 @@ public class SupplyContractServiceApplication {
 	public ModelMapper modelMapper() {
 	    return new ModelMapper();
 	}
+	
+	
 	
 	
 

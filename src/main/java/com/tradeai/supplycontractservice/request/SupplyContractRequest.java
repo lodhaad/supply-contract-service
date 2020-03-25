@@ -1,4 +1,4 @@
-package com.tradeai.supplycontractservice.dto;
+package com.tradeai.supplycontractservice.request;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -10,7 +10,9 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class SupplyContractDTO {
+
+public class SupplyContractRequest {
+	
 
 	private Integer supplyContractId;
 
@@ -40,6 +42,9 @@ public class SupplyContractDTO {
 	
 	private String activityType;
 	
-	private List<SupplyContractActivityDTO> activities;
+	private List<SupplyContractActivityRequest> activities;
+
+	
+
 
 }

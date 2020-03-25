@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.tradeai.supplycontractservice.data.SupplyActivityRepository;
@@ -19,6 +20,12 @@ import com.tradeai.supplycontractservice.datamodel.SupplyContract;
 import com.tradeai.supplycontractservice.dto.SupplyContractActivityDTO;
 import com.tradeai.supplycontractservice.dto.SupplyContractActivityStatusDTO;
 import com.tradeai.supplycontractservice.dto.SupplyContractDTO;
+import com.tradeai.supplycontractservice.request.SupplyContractRequest;
+import com.tradeai.supplycontractservice.response.SupplyContractResponse;
+
+
+import com.tradeai.supplycontractservice.service.patterns.ActivityFactory;
+import com.tradeai.supplycontractservice.service.patterns.SupplyContractActivityType;
 
 @Service
 public class SupplyContractServiceImpl implements SupplyContractService {
@@ -34,6 +41,27 @@ public class SupplyContractServiceImpl implements SupplyContractService {
 	
 	@Autowired
 	private ModelMapper mapper;
+	
+	
+//	@Autowired 
+//	@Qualifier("NewPendingActivityStatus")
+//	private ActivityStatus newPendingActivityStatus;
+	
+//	@Autowired 
+//	@Qualifier("NewActivity")
+//	private Activity newActivity;
+	
+	
+	@Autowired
+	@Qualifier("ActivityFactory")
+	private ActivityFactory factory;
+	
+	
+
+
+	
+
+
 
 	@Override
 	public SupplyContractDTO getContractByContractId(Integer contractId) {
@@ -43,14 +71,20 @@ public class SupplyContractServiceImpl implements SupplyContractService {
 		SupplyContract contractForQuery = contract.get();
 		
 		SupplyContractDTO contractDto = convert(contractForQuery);
+
+
+		//SupplyContractResponse response  = mapper.map(contractDto, SupplyContractResponse.class);
 		
 		return contractDto;
 	}
 	
+	
+	
+	
+	
 	private SupplyContractDTO convert(SupplyContract contractModel) {
 		
-
-
+		
 		
 		List<SupplyActivity> activities = activityRepository.findBySupplyContractId(contractModel.getSupplyContractId());
 		
@@ -96,11 +130,7 @@ public class SupplyContractServiceImpl implements SupplyContractService {
 			 
 			 dtos.add(activityDTO);
 			 
-			 
-			 
-				 
-				 
-			
+						
 			
 		}
 		
@@ -116,6 +146,7 @@ public class SupplyContractServiceImpl implements SupplyContractService {
 		contractDTO.setCurrentQuantity(contractModel.getCurrentQuantity());
 		contractDTO.setCurrentRate(contractModel.getCurrentRate());
 		contractDTO.setContractStatus(contractModel.getContractStatus());
+		contractDTO.setActivityType(contractModel.getActivityType());
 		
 		contractDTO.setActivities(dtos);
 		
@@ -125,6 +156,21 @@ public class SupplyContractServiceImpl implements SupplyContractService {
 		return contractDTO;
 		
 	}
+
+	@Override
+	public SupplyContractDTO processContractActivity(SupplyContractDTO contract) {
+		
+		SupplyContractActivityType activityType = factory.getActivityType(contract);
+		return activityType.processActivityAndStatus(contract);
+		
+		
+	}
+
+
+
+
+
+
 
 	
 

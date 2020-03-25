@@ -74,6 +74,13 @@ public class SupplyContract {
 	@Column (name = "contract_status")
 	private String contractStatus;
 	
+	@Column (name = "activity_type")
+	private String activityType;
+	
+	
+	
+	///add the type of activity and the status and drive everything from it
+	
 	/*
 	  @OneToMany(mappedBy="relatedContract")
 	 
