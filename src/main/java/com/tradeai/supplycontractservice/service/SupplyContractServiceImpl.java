@@ -22,10 +22,8 @@ import com.tradeai.supplycontractservice.dto.SupplyContractActivityStatusDTO;
 import com.tradeai.supplycontractservice.dto.SupplyContractDTO;
 import com.tradeai.supplycontractservice.request.SupplyContractRequest;
 import com.tradeai.supplycontractservice.response.SupplyContractResponse;
-
-
-import com.tradeai.supplycontractservice.service.patterns.ActivityFactory;
-import com.tradeai.supplycontractservice.service.patterns.SupplyContractActivityType;
+import com.tradeai.supplycontractservice.service.activity.processing.ActivityFactory;
+import com.tradeai.supplycontractservice.service.activity.processing.SupplyContractActivityType;
 
 @Service
 public class SupplyContractServiceImpl implements SupplyContractService {

@@ -33,8 +33,17 @@ public class SupplyContractController {
 
 	@Autowired
 	private SupplyContractService service;
+	
+	
+	@GetMapping (path = "/hello")
+	public String sayHello() {
+		
+		return "Hello Contract Service";
+		
+	}
+	
 
-	@GetMapping(path = "/{contractId}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/{contractId}")
 	public ResponseEntity<SupplyContractResponse> getContract(@PathVariable String contractId) {
 
 		SupplyContractDTO dtoresponse = service.getContractByContractId(Integer.parseInt(contractId));
@@ -117,6 +126,7 @@ public class SupplyContractController {
 				statusActivityRes.setContractId(status.getContractId());
 				statusActivityRes.setActivityType(status.getActivityType());
 				statusActivityRes.setActivityState(status.getActivityState());
+				statusActivityRes.setContractActivityStatusId(status.getContractActivityStatusId());
 				
 				statusRes.add(statusActivityRes);
 				
@@ -142,6 +152,7 @@ public class SupplyContractController {
 			response.setOriginalQuantity(dto.getOriginalQuantity());
 			response.setOriginalRate(dto.getOriginalRate());
 			response.setActivityType(dto.getActivityType());
+			response.setSuppliedId(dto.getSuppliedId());
 			
 			response.setActivities(activitiesRes);
 		
