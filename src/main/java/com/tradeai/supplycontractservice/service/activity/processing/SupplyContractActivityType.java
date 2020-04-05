@@ -4,8 +4,11 @@ import com.tradeai.supplycontractservice.dto.SupplyContractDTO;
 
 public interface SupplyContractActivityType {
 	
-	public SupplyContractDTO processActivityAndStatus(SupplyContractDTO dto);
-
-	
+	/**
+	 * 
+	 * @param contractRequest
+	 * @return
+	 */
+	public SupplyContractDTO processActivityAndStatus(SupplyContractDTO supplyContractDTO, String activityStatus);
 
 }

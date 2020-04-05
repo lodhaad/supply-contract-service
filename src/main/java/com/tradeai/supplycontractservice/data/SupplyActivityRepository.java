@@ -13,7 +13,7 @@ public interface SupplyActivityRepository extends CrudRepository<SupplyActivity,
 	public List<SupplyActivity> findBySupplyContractId(Integer supplyContractId);
 	
 	
-	@Query("select max(contractActivityStatusId) + 1 from SupplyActivity where supplyContractId = (:contractId)")
+	@Query("select max(supplyContractActivityId) + 1 from SupplyActivity where supplyContractId = (:contractId)")
 	public Integer getMaxActivityForContract(@Param ("contractId")Integer contractId);
 	
 	public SupplyActivity findBySupplyContractIdAndActivityTypeAndActivityState(Integer contractId, String activityType, 

@@ -4,32 +4,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.tradeai.supplycontractservice.dto.SupplyContractDTO;
-import com.tradeai.supplycontractservice.service.activity.behaviour.NewPendingActivityBehaviour;
-import com.tradeai.supplycontractservice.service.activity.behaviour.NewSettledActivityBehaviour;
+import com.tradeai.supplycontractservice.constants.ActivityType;
+import com.tradeai.supplycontractservice.request.SupplyContractRequest;
 
 
 @Component ("ActivityFactory")
 public class ActivityFactory {
 	
 	@Autowired
-	SupplyContractActivityType activity;
-	
-	@Autowired
 	@Qualifier ("NewActivity")
 	NewActivityType newActivity;
 	
-	public SupplyContractActivityType getActivityType(SupplyContractDTO dto) {
+	@Autowired
+	@Qualifier ("MarkActivity")
+	MarkActivityType markActivity;
+	
+	@Autowired
+	@Qualifier ("ReturnActivity")
+	ReturnActivityType returnActivity;
+	
+	/**
+	 * 
+	 * @param dto
+	 * @return
+	 */
+	public SupplyContractActivityType getActivityType(SupplyContractRequest contractRequest) {
+		SupplyContractActivityType activity = null;
 		
-		if (dto.getActivityType().equals("N")) {
-			
-			
-			  activity = newActivity ;
-			  return activity;
-			
+		if (ActivityType.N.name().equals(contractRequest.getActivityType())) {
+			activity = newActivity ;
+		} else if(ActivityType.M.name().equals(contractRequest.getActivityType())) {
+			activity = markActivity;
+		} else if(ActivityType.R.name().equals(contractRequest.getActivityType()) || ActivityType.P.name().equals(contractRequest.getActivityType())) {
+			activity = returnActivity;
+		} else {
+			throw new RuntimeException("Not a supported activity Type");
 		}
 		
-		return null;
+		return activity;
 	}
 
 }

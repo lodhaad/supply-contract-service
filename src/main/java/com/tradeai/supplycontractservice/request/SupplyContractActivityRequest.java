@@ -2,9 +2,6 @@ package com.tradeai.supplycontractservice.request;
 
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.List;
-
-import com.tradeai.supplycontractservice.response.SupplyContractActivityStatusResponse;
 
 import lombok.Getter;
 import lombok.Setter;

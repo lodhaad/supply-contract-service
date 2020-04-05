@@ -4,6 +4,6 @@ import com.tradeai.supplycontractservice.dto.SupplyContractDTO;
 
 public interface PendingBehaviour {
 	
-	public SupplyContractDTO onPendingAction(SupplyContractDTO dao);
+	public SupplyContractDTO onPendingAction(SupplyContractDTO supplyContractDTO);
 
 }

@@ -18,7 +18,6 @@ import com.tradeai.supplycontractservice.dto.SupplyContractActivityStatusDTO;
 import com.tradeai.supplycontractservice.dto.SupplyContractDTO;
 
 @Component("NewSettledActivityBehaviour")
-
 public class NewSettledActivityBehaviour implements SettledBehaviour {
 	
 	
@@ -42,8 +41,7 @@ public class NewSettledActivityBehaviour implements SettledBehaviour {
 
 		SupplyContract contractDomain = mapper.map(contract, SupplyContract.class);
 
-		SupplyActivity activity = activityRepo.findBySupplyContractIdAndActivityTypeAndActivityState(
-				contractDomain.getSupplyContractId(), contractDomain.getActivityType(), "P");
+		SupplyActivity activity = activityRepo.findBySupplyContractIdAndActivityTypeAndActivityState(contractDomain.getSupplyContractId(), contractDomain.getActivityType(), "P");
 		
 		activity.setActivityState("S");
 
