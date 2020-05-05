@@ -53,7 +53,8 @@ public class SupplyContractController {
 	 * @param contract
 	 * @return
 	 */
-	@PostMapping(path = "/addContract", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping
+
 	public ResponseEntity<SupplyContractResponse> addContract(@RequestBody SupplyContractRequest contractRequest) {
 		
 		// add contract
